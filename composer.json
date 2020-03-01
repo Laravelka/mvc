@@ -1,0 +1,27 @@
+{
+    "require": {
+        "symfony/http-foundation": "^4.3",
+        "rakit/validation": "^1.2",
+        "nezamy/route": "^1.2",
+        "xiaoler/blade": "^5.4",
+        "symfony/debug": "^4.3",
+        "pandcar/base": "^2.3",
+        "nesbot/carbon": "^2.25",
+        "league/route": "^4.3",
+        "zendframework/zend-diactoros": "^2.1",
+        "zendframework/zend-httphandlerrunner": "^1.1",
+        "league/container": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+             "Core\\": "Core/",
+             "App\\": "App/"
+        },
+        "files": [
+        	"Core/Helpers/Functions.php"
+        ]
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.3"
+    }
+}
