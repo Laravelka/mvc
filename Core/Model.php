@@ -7,11 +7,44 @@ use Carbon\Carbon;
 
 Abstract class Model
 {
+	/**
+	 * Название таблицы
+	 *
+	 * @var string
+	 */
 	protected $table;
-	protected $fillable = [];
+
+	/**
+	 * Приватные данные, которые не дожны показываться, если их не запрашивают через SELECT ...
+	 * Пример: $user->getAll(['password', 'token']); после чего они окажутся в ответе
+	 *
+	 * @var array
+	 */
 	protected $private = [];
+
+	/**
+	 * Данные, которые можно записать в базу без ограничений
+	 * На подобии такого: $user->create($_POST); 
+	 *
+	 * @var array
+	 */
+	protected $fillable = [];
+
+	/**
+	 * Данные в формате timestamp, которые будут выведены объектом Carbon
+	 *
+	 * @var array
+	 */
 	protected $timestamps = ['created_at', 'updated_at', 'deleted_at'];
 	
+	/**
+	 * Получение всех данных или по лимиту
+	 *
+	 * @param  string|array $select
+	 * @param  int $offset
+	 * @param  false|int $limit
+	 * @return false|array
+	*/
 	public function getAll($select = '*', $offset = 0, $limit = false)
 	{
 		$response = false;
@@ -32,6 +65,12 @@ Abstract class Model
 		return $response;
 	}
 
+	/**
+	 * Получение данных по их id
+	 *
+	 * @param string|array $select
+	 * @return false|array
+	*/
 	public function getById($id, $select = '*')
 	{
 		$response = false;
@@ -48,6 +87,12 @@ Abstract class Model
 		return $response;
 	}
 	
+	/**
+	 * Получение первой записи
+	 *
+	 * @param string|array $select
+	 * @return false|array
+	*/
 	public function first($select = '*')
 	{
 		$response = false;
@@ -59,6 +104,12 @@ Abstract class Model
 		return $response;
 	}
 	
+	/**
+	 * Получение последней записи
+	 * 
+	 * @param  string|array $select
+	 * @return false|array
+	 */
 	public function last($select = '*')
 	{
 		$response = false;
@@ -72,6 +123,12 @@ Abstract class Model
 		return $response;
 	}
 	
+	/**
+	 * Добавление новой записи
+	 * 
+	 * @param  array $params
+	 * @return false|integer
+	 */
 	public function create($params)
 	{
 		$response = false;
@@ -87,6 +144,13 @@ Abstract class Model
 		return $response;
 	}
 	
+	/**
+	 * Обновление записи
+	 * 
+	 * @param  array $where
+	 * @param  array $params
+	 * @return false|array
+	 */
 	public function save($where, $params)
 	{
 		$response = false;
@@ -102,6 +166,12 @@ Abstract class Model
 		return $response;
 	}
 	
+	/**
+	 * Удаление записи
+	 * 
+	 * @param  integer|array|string
+	 * @return false
+	 */
 	public function delete($where)
 	{
 		$response = false;
@@ -115,6 +185,14 @@ Abstract class Model
 		return $response;
 	}
 	
+	/**
+	 * Проверка данных перед отдачей из функции
+	 * Так же добавление timestamp ключам объекта Carbon
+	 * 
+	 * @param  array $array
+	 * @param  string|array $select
+	 * @return false|array
+	 */
 	protected function checkFields($array, $select)
 	{
 		$response = false;
@@ -139,6 +217,12 @@ Abstract class Model
 		return $response;
 	}
 	
+	/**
+	 * Проверка входных данных
+	 * 
+	 * @param  array
+	 * @return false
+	 */
 	protected function fillable(&$params)
 	{
 		$response = false;
@@ -157,6 +241,12 @@ Abstract class Model
 		return $response;
 	}
 	
+	/**
+	 * Конвертация select параметра под SQL запрос
+	 * 
+	 * @param  array|string
+	 * @return string
+	 */
 	protected function convertSelect($select)
 	{
 		return (is_array($select) && !empty($select) ? implode(', ', $select) : '*');

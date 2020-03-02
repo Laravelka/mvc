@@ -9,11 +9,16 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class NewsController extends Controller
 {
+	/**
+	 * Получение всех новостей
+	 *
+	 * @param  Psr\Http\Message\ServerRequestInterface $request
+	 * @param  array $args
+	 * @return Psr\Http\Message\ServerRequestInterface
+	*/
 	public function all(ServerRequestInterface $request, $args) : ResponseInterface
 	{
-		$news = new News;
-		
-		$data = $news->getAll([
+		$data = (new News)->getAll([
 			'n.*', 'u.login'
 		]);
 		
@@ -23,11 +28,16 @@ class NewsController extends Controller
 		return response($response)->view('news.all');
 	}
 	
+	/**
+	 * Получение новости по ее id
+	 *
+	 * @param  Psr\Http\Message\ServerRequestInterface $request
+	 * @param  array $args
+	 * @return Psr\Http\Message\ServerRequestInterface
+	*/
 	public function getById(ServerRequestInterface $request, $args) : ResponseInterface
 	{
-		$news = new News;
-		
-		$data = $news->getById($args['id']);
+		$data = (new News)->getById($args['id']);
 		
 		$response = [
 			'news' => $data

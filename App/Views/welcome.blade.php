@@ -5,6 +5,9 @@
 	<div class=container-fluid>
 		<div class="row">
 			<div class="col-sm-12 col-md-3 col-lg-3">
+				@empty($news)
+					News is empty
+				@else
 				<article class="card theme">
 					<div class="card-header theme"><a href="/news/" class="text-muted">Новости</a></div>
 					<div class=card-body>
@@ -15,6 +18,7 @@
 						<a class="btn btn-sm btn-success btn-block theme" href="/news/id{{ $news['id'] }}">Читать дальше</a>
 					</div>
 				</article>
+				@endif
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6">
 				<article class="card theme">

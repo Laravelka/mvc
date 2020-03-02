@@ -4,3 +4,4 @@
 /cache/blade/
 npm-debug.log
 yarn-error.log
+/public/adminer.php

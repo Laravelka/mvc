@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Core\Controller;
 use App\Models\News;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 class HomeController extends Controller
 {
-	public function welcome(ServerRequestInterface $request, $args) : ResponseInterface
+	/**
+	 * @param  Request
+	 * @param  array
+	 * @return Response
+	 */
+	public function welcome(Request $request, $args) : Response
 	{
-		$news = new News;
-		
 		$data = [
-			'news' => $news->last()
+			'news' => (new News)->last()
 		];
 		return response($data)->view('welcome');
 	}

@@ -4,19 +4,38 @@ namespace Core;
 
 class Config
 {
+	/**
+	 * Кешированные конфиги
+	 * 
+	 * @var array
+	 */
 	public $cacheConfigs = [];
+
+	/**
+	 * Экземпляр объекта
+	 * 
+	 * @var null|Core/Config
+	 */
 	protected static $instance = null;
 	
 	private function __construct() {}
 	
+
 	public static function instance()
 	{
 		if (self::$instance === null) self::$instance = new self;
 		
 		return self::$instance;
 	}
-	
-	public function get($string, $default)
+
+	/**
+	 * Получить значение из конфига
+	 * 
+	 * @param  string $string
+	 * @param  mixed $default
+	 * @return false|array
+	 */
+	public function get(string $string, $default)
 	{
 		$config = self::instance();
 		$match = explode('.', $string);
@@ -49,6 +68,17 @@ class Config
 		return $array;
 	}
 	
+	/** 
+	 * Запрет клонирвания
+	 * 
+	 * @return void
+	 */
 	private function __clone() {}
+
+	/**
+	 * Анологично с __clone
+	 *
+	 * @return void
+	 */
 	private function __wakeup() {}
 }

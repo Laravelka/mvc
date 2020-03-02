@@ -81,7 +81,7 @@ class Csrf
 		return !empty($_SESSION[self::instance()->name]);
 	}
 	
-	public static function check($string = false)
+	public static function check($string = null)
 	{
 		$csrf = self::instance();
 		$response = false;

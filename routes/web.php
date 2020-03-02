@@ -23,9 +23,5 @@ $router
 	->get('/', 'App\Http\Controllers\HomeController::welcome')
 	->setName('welcome');
 
-$router->get('/logs', function() {
-    return response()->view('polling');
-});
-
 $router->get('/login', 'App\Http\Controllers\AuthController::login');
 $router->get('/register', 'App\Http\Controllers\AuthController::register');

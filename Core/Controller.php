@@ -8,18 +8,23 @@ use Psr\Http\Message\ServerRequestInterface;
 
 abstract class Controller
 {
+	/**
+	 * Экземпляр класса Request
+	 * 
+	 * @var Symfony\Component\HttpFoundation\Request
+	 */
 	protected $request;
+
+	/**
+	 * Экземпляр класса Validator
+	 * 
+	 * @var Rakit\Validation\Validator
+	 */
 	protected $validator;
 	
 	public function __construct()
 	{
-		$class = get_class($this);
-		
-		
-		
 		$this->request = request();
 		$this->validator = new Validator;
 	}
-	
-	
 }

@@ -13,8 +13,6 @@ class AuthController extends Controller
 {
 	public function login(ServerRequestInterface $request, $args) : ResponseInterface
 	{
-		var_dump(Request::input('email'));
-		
 		$validation = $this->validator->validate($request->getParsedBody(), [
 			'email' => 'required|email',
 			'password' => 'required|min:6',
@@ -30,7 +28,7 @@ class AuthController extends Controller
 		else
 		{
 			$data = [
-				'message' => 'OK'
+				'message' => 'Вы успешно авторизировались'
 			];
 		}
 		return response($data)->json();
@@ -38,15 +36,14 @@ class AuthController extends Controller
 	
 	public function register(ServerRequestInterface $request, $args) : ResponseInterface
 	{
-		$validation = $this->validator->validate(
-			$request->getParsedBody(),
-			[
-				'email' => 'required|email',
-				'password' => 'required|min:6',
-				'first_name' => 'required|min:2',
-				'last_name' => 'required|min:2'
-			]
-		);
+		$inputs = $request->getParsedBody();
+
+		$validation = $this->validator->validate($inputs, [
+			'email' => 'required|email',
+			'password' => 'required|min:6',
+			'first_name' => 'required|min:2',
+			'last_name' => 'required|min:2'
+		]);
 	
 		if ($validation->fails())
 		{
@@ -58,14 +55,11 @@ class AuthController extends Controller
 		else
 		{
 			$user = new User;
-			$input = (object) $request->getParsedBody();
 			
-			$userId = $user->create([
-				'login' => $input->login
-			]);
+			$userId = $user->create($inputs);
 			
 			$data = [
-				'message' => 'OK'
+				'message' => 'Регистрация прошла успешно'
 			];
 		}
 		return response($data)->json();
